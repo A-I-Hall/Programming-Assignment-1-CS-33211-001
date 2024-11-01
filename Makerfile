@@ -1,0 +1,37 @@
+
+
+#   Producer and Consumer Problem Makefile
+#   Using G++ Compiler
+#   Kent State Universty 
+#   Assignment 1- CS 33211  
+#   Author: Annika Hall 
+#   Date: 11/01/2024
+
+
+# Menu
+msg:
+	@echo 'Available Targets:'
+	@echo '  producer - Compiles the producer program.'
+	@echo '  consumer - Compiles the consumer program.'
+	@echo '  run      - Compiles and runs both programs with the shared memory key.'
+	@echo '  clean    - Removes compiled files and object files.'
+
+# Target to compile the consumer program
+consumer: ./src/consumer.cpp
+	g++ "./src/consumer.cpp" -pthread -lrt -o ./out/consumer
+
+# Target to compile the producer program
+producer: ./src/producer.cpp
+	g++ "./src/producer.cpp" -pthread -lrt -o ./out/producer
+
+# Target to compile and run both programs
+run: 
+	make producer
+	make consumer
+	clear
+	./out/producer shmfile & ./out/consumer shmfile
+
+# Target to clean up compiled files
+clean:
+	rm -f ./out/consumer
+	rm -f ./out/producer
